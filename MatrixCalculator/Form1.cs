@@ -19,11 +19,11 @@ namespace MatrixCalculator
                 double[,] matrixA = ReadMatrix(txtMatrix1.Text);
                 double[,] matrixB = ReadMatrix(txtMatrix2.Text);
 
-                // Debugging - check matrix dimensions before calculation
+               
                 MessageBox.Show($"Matrix A: {matrixA.GetLength(0)}x{matrixA.GetLength(1)}");
                 MessageBox.Show($"Matrix B: {matrixB.GetLength(0)}x{matrixB.GetLength(1)}");
 
-                // Perform the selected operation
+             
                 if (ComboOperations.SelectedItem.ToString() == "Multiplication")
                     lblResult.Text = FormatMatrix(MultiplyMatrices(matrixA, matrixB));
                 else if (ComboOperations.SelectedItem.ToString() == "Determinant")
@@ -35,7 +35,32 @@ namespace MatrixCalculator
             }
         }
 
-        // Convert text input to a matrix (2D array)
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            SaveMatrixToFile(lblResult.Text);
+        }
+        // Save the result matrix to a file
+        private void SaveMatrixToFile(string result)
+        {
+            try
+            {
+                
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\MatrixResult.txt";
+
+              
+                System.IO.File.WriteAllText(filePath, result);
+
+                
+                MessageBox.Show($"Matrix saved to: {filePath}", "File Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error saving file: " + ex.Message, "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        // Convert text input to a matrix
         private double[,] ReadMatrix(string input)
         {
             string[] rows = input.Split(';');
@@ -55,7 +80,6 @@ namespace MatrixCalculator
             return matrix;
         }
 
-        // Function for matrix multiplication
         private double[,] MultiplyMatrices(double[,] A, double[,] B)
         {
             int rowsA = A.GetLength(0), colsA = A.GetLength(1);
@@ -80,7 +104,6 @@ namespace MatrixCalculator
             return result;
         }
 
-        // Recursive function to calculate the determinant
         private double Determinant(double[,] matrix, int size)
         {
             if (size == 1) return matrix[0, 0];
@@ -95,7 +118,6 @@ namespace MatrixCalculator
             return det;
         }
 
-        // Function for extracting submatrices (used for determinant calculation)
         private double[,] GetSubMatrix(double[,] matrix, int size, int column)
         {
             double[,] subMatrix = new double[size - 1, size - 1];
@@ -112,7 +134,6 @@ namespace MatrixCalculator
             return subMatrix;
         }
 
-        // Function for formatting matrix output as text
         private string FormatMatrix(double[,] matrix)
         {
             StringBuilder sb = new StringBuilder();
