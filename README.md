@@ -26,12 +26,15 @@ Macierze należy wpisywać **rzędami**, oddzielając liczby spacją, a wiersze 
 1 2 3; 4 5 6     # Macierz 2x3
 1 2 3; 4 5 6; 7 8 9   # Macierz 3x3
 ```
+```
 MatrixCalculator/
 ├── bin/Debug/              # Folder z plikiem wykonywalnym (.exe)
 ├── Form1.cs                # Główna logika aplikacji
 ├── Form1.Designer.cs       # Definicja UI (Windows Forms)
 ├── MatrixResult.txt        # Plik z zapisanym wynikiem
 └── README.md               # Dokumentacja projektu
+```
+
 
 Projekt został stworzony przez Damiana Siutę.
 
